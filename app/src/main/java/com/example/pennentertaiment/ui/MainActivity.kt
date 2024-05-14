@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PennEntertaimentTheme {
-
+                SplashScreen()
                 val permissionGranted = remember { mutableStateOf(false) }
                 val permissionDenied = remember { mutableStateOf(false) }
 
