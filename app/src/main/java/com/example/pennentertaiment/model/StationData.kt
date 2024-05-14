@@ -94,7 +94,10 @@ data class ForecastData(
 data class City(
     @SerializedName("name")
     val name: String? = null,
+    @SerializedName("geo")
+    val geo: List<Double>? = null
 )
+
 
 data class Forecast(
     @SerializedName("daily")

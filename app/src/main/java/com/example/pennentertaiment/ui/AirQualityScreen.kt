@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pennentertaiment.R
+import com.example.pennentertaiment.model.City
 import com.example.pennentertaiment.model.DailyForecast
 import com.example.pennentertaiment.model.ForecastScreenData
 import com.example.pennentertaiment.network.Resource
@@ -191,7 +192,7 @@ fun ForecastContentByTabs(airQualityData: ForecastScreenData?) {
                 }
                 DailyAirQualityScreen(
                     modifier = Modifier.align(Alignment.Center),
-                    city = airQualityData?.city?.name ?: "",
+                    city = airQualityData?.city,
                     selected = thisDay
                 )
             }
@@ -209,7 +210,7 @@ fun ForecastContentByTabs(airQualityData: ForecastScreenData?) {
 @Composable
 fun DailyAirQualityScreen(
     modifier: Modifier,
-    city: String,
+    city: City?,
     selected: Map<String, DailyForecast?>?
 ) {
     Column(
@@ -225,27 +226,12 @@ fun DailyAirQualityScreen(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
-        Text(
-            text = "Station Name:",
-            fontSize = 25.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp)
-        )
-        Text(
-            text = "$city",
-            fontSize = 18.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Title("Station Name:")
+        SubText(text = "${city?.name}")
+        Title("Location (lat,lng):")
+        SubText(text = "${city?.geo?.getOrNull(0) ?: 0.0}, ${city?.geo?.getOrNull(1) ?: 0.0}")
         Divider(modifier = Modifier.padding(16.dp))
-        Text(
-            text = "Air Quality ",
-            fontSize = 25.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Title("Air Quality ")
         AirQualityTitle(title = PM25)
         AirQualityContent(airQualityText = selected?.get(PM25))
         AirQualityTitle(title = PM10)
@@ -253,6 +239,26 @@ fun DailyAirQualityScreen(
         AirQualityTitle(title = "O3")
         AirQualityContent(airQualityText = selected?.get(o3))
     }
+}
+
+@Composable
+fun Title(text: String) {
+    Text(
+        text = text,
+        fontSize = 25.sp,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+fun SubText(text: String) {
+    Text(
+        text = text,
+        fontSize = 18.sp,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth()
+    )
 }
 
 @Composable
