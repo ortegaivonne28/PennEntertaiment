@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PennEntertaiment</string>
+    <string name="permission_denied">Permission has been denied. Please enable them in setting before we can proceed.</string>
+    <string name="search_by_city">Search by city…</string>
+    <string name="something_went_wrong">Something went wrong.</string>
+
+</resources>
